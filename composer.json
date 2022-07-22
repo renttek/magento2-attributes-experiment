@@ -1,0 +1,29 @@
+{
+    "name": "renttek/magento2-attributes",
+    "type": "magento2-module",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Julian Nuß",
+            "email": "juliann@renttek.de"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": "^8.1",
+        "magento/framework": "*",
+        "symfony/finder": "^4.4|^5.4|^6.0",
+        "nikic/iter": "^2.2"
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-latest"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Renttek\\Attributes\\": "src/"
+        }
+    }
+}

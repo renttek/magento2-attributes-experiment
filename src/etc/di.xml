@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Renttek\Attributes\Api\FooRepositoryInterface" type="Renttek\Attributes\Api\FooRepository"/>
+
+    <type name="Magento\Webapi\Model\ConfigInterface">
+        <plugin name="renttek_attributes__webapi__add_attribute_based_config" type="Renttek\Attributes\Plugin\WebApi\AddAttributeBasedConfig" sortOrder="100"/>
+    </type>
+</config>
