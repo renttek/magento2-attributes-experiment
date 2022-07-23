@@ -20,7 +20,8 @@
     },
     "autoload": {
         "files": [
-            "registration.php"
+            "registration.php",
+            "src/functions.php"
         ],
         "psr-4": {
             "Renttek\\Attributes\\": "src/"

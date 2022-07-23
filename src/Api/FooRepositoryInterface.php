@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Renttek\Attributes\Api;
 
-use Renttek\Attributes\Attributes\WebApi\Resource;
-use Renttek\Attributes\Attributes\WebApi\Route;
-use Renttek\Attributes\Attributes\WebApi;
+use Renttek\Attributes\Attributes\Webapi\Resource;
+use Renttek\Attributes\Attributes\Webapi\Route;
+use Renttek\Attributes\Attributes\Webapi;
 
-#[WebApi(
+#[Webapi(
     path: '/V1/test',
     resources: [
         new Resource('anonymous'),

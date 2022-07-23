@@ -9,8 +9,7 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Interface_;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeTraverserInterface;
-use PhpParser\NodeVisitor;
-use PhpParser\NodeVisitor\FirstFindingVisitor;
+use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\NodeVisitor\NameResolver;
 use PhpParser\Parser;
 use PhpParser\ParserFactory;
@@ -18,21 +17,21 @@ use SplFileInfo;
 
 class ClassReader
 {
-    private FirstFindingVisitor $classFinder;
+    private FindingVisitor $classFinder;
 
     /**
-     * @return class-string|null
+     * @param SplFileInfo $path
+     *
+     * @return array|null
+     * @psalm-return list<Class_|Interface_>|null
      */
-    public function getClassNameByFile(SplFileInfo $path): ?string
+    public function getClassNodes(SplFileInfo $path): ?array
     {
         $fileContent = $this->readFile($path);
         $nodes       = $this->getParser()->parse($fileContent);
         $this->getNodeTraverser()->traverse($nodes);
 
-        /** @var Class_|Interface_|null $class */
-        $class = $this->getClassFinder()->getFoundNode();
-
-        return $class?->namespacedName->toString();
+        return $this->getClassFinder()->getFoundNodes();
     }
 
     private function readFile(SplFileInfo $path): string
@@ -45,9 +44,9 @@ class ClassReader
         return $this->parser ??= (new ParserFactory())->create(ParserFactory::PREFER_PHP7);
     }
 
-    private function getClassFinder(): NodeVisitor
+    private function getClassFinder(): FindingVisitor
     {
-        return $this->classFinder ??= new FirstFindingVisitor(static function (Node $node) {
+        return $this->classFinder ??= new FindingVisitor(static function (Node $node) {
             return $node instanceof Interface_
                 || $node instanceof Class_;
         });

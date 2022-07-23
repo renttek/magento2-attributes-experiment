@@ -2,24 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Renttek\Attributes\Plugin\WebApi;
+namespace Renttek\Attributes\Plugin\Config;
 
 use Magento\Webapi\Model\Config\Converter;
 use Magento\Webapi\Model\ConfigInterface;
-use Renttek\Attributes\Model\ConfigGenerator;
-
+use Renttek\Attributes\Model\Webapi\WebapiConfig;
 use function array_merge as merge;
 
-class AddAttributeBasedConfig
+class AddWebapiConfig
 {
     public function __construct(
-        private ConfigGenerator $configGenerator
+        private readonly WebapiConfig $webapiConfig
     ) {
     }
 
     public function afterGetServices(ConfigInterface $configModel, array $apiConfig): array
     {
-        $attributeBasedConfig = $this->configGenerator->getConfig();
+        $attributeBasedConfig = $this->webapiConfig->getConfig();
 
         $apiConfig[Converter::KEY_SERVICES] = merge(
             $apiConfig[Converter::KEY_SERVICES],

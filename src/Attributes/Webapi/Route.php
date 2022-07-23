@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Renttek\Attributes\Attributes\WebApi;
+namespace Renttek\Attributes\Attributes\Webapi;
 
 use Attribute;
-use Renttek\Attributes\Attributes\WebApi;
+use Renttek\Attributes\Attributes\Webapi;
 
 use function sprintf;
 
 #[Attribute(Attribute::TARGET_METHOD | Attribute::IS_REPEATABLE)]
-class Route extends WebApi
+class Route extends Webapi
 {
     /**
      * @param list<Resource> $resources

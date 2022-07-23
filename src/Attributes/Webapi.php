@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Renttek\Attributes\Attributes;
 
 use Attribute;
-use Renttek\Attributes\Attributes\WebApi\Parameter;
-use Renttek\Attributes\Attributes\WebApi\Resource;
+use Renttek\Attributes\Attributes\Webapi\Parameter;
+use Renttek\Attributes\Attributes\Webapi\Resource;
 
 #[Attribute(Attribute::TARGET_CLASS)]
-class WebApi
+class Webapi
 {
     /**
      * @param list<Resource> $resources

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Renttek\Attributes\Attributes\WebApi;
+namespace Renttek\Attributes\Attributes\Webapi;
 
 class Resource
 {
