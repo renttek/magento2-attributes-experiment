@@ -10,8 +10,9 @@ The following configurations are currently supported:
 
 A lot of things that are still missing: any kind of test, static code checks, caching and many other things.
 
+## Supported configurations
 
-## Webapi
+### Webapi
 
 ```php
 use Renttek\Attributes\Attributes\Webapi;
@@ -40,7 +41,7 @@ interface FooRepositoryInterface
 }
 ```
 
-## Cronjobs
+### Cronjobs
 
 ```php
 use Renttek\Attributes\Attributes\Cronjob;
@@ -60,7 +61,7 @@ class RepeatingStuff
 ```
 
 
-## Observers
+### Observers
 
 ```php
 use Renttek\Attributes\Attributes\EventSubscriber;
@@ -77,4 +78,9 @@ class DoStuff implements ObserverInterface
     }
 }
 ```
+
+## Caching
+
+Each config will get saved to a cache file under `<magento>/var/attributes/<id>.php`
+
 
