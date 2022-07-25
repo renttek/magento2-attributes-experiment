@@ -2,6 +2,13 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <!-- Dummy Stuff -->
     <preference for="Renttek\Attributes\Api\FooRepositoryInterface" type="Renttek\Attributes\Api\FooRepository"/>
+    <type name="Renttek\Attributes\Model\ClassFinder">
+        <arguments>
+            <argument name="modules" xsi:type="array">
+                <item name="dummy" xsi:type="string">Renttek_Attributes</item>
+            </argument>
+        </arguments>
+    </type>
 
     <!-- Observers -->
     <!-- Observers - Plugins -->

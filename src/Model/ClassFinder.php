@@ -10,8 +10,10 @@ use Magento\Framework\Module\ModuleListInterface;
 use SplFileInfo;
 use Symfony\Component\Finder\Finder;
 
+use function array_intersect as intersect;
 use function iter\filter;
 use function iter\flatMap;
+use function iter\func\not;
 use function iter\isEmpty;
 use function iter\keys;
 use function iter\map;
@@ -22,6 +24,7 @@ class ClassFinder
     public function __construct(
         private readonly ModuleListInterface $moduleList,
         private readonly ComponentRegistrarInterface $componentRegistrar,
+        private readonly array $modules = [],
     ) {
     }
 
@@ -48,21 +51,33 @@ class ClassFinder
      */
     private function getPathsToSearch(array $paths): array
     {
-        $moduleDirectories = map(
-            fn($m) => $this->componentRegistrar->getPath(ComponentRegistrar::MODULE, $m),
-            keys($this->moduleList->getAll())
-        );
+        $pathsToSearch = map(fn ($module) => $this->getModuleDirectory($module), $this->getModulesToSearch());
+        $pathsToSearch = filter(not('is_null'), $pathsToSearch);
 
-        $modulePaths = isEmpty($paths)
-            ? $moduleDirectories
-            : flatMap(
-                fn($directory) => map(
-                    fn($path) => $directory . DIRECTORY_SEPARATOR . $path,
-                    $paths
-                ),
-                $moduleDirectories
+        if (!isEmpty($paths)) {
+            $pathsToSearch = flatMap(
+                fn($dir) => map(fn($path) => $dir . DIRECTORY_SEPARATOR . $path, $paths),
+                $pathsToSearch
             );
+        }
 
-        return toArray(filter('is_dir', $modulePaths));
+        $pathsToSearch = filter('is_dir', $pathsToSearch);
+
+        return toArray($pathsToSearch);
+    }
+
+    private function getModuleDirectory(string $module): ?string
+    {
+        return $this->componentRegistrar->getPath(ComponentRegistrar::MODULE, $module);
+    }
+
+    /**
+     * @return list<string>
+     */
+    private function getModulesToSearch(): array
+    {
+        $enabledModules = toArray(keys($this->moduleList->getAll()));
+
+        return toArray(intersect($enabledModules, $this->modules));
     }
 }

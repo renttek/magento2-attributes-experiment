@@ -12,6 +12,22 @@ A lot of things that are still missing: any kind of test, static code checks, ca
 
 ## Supported configurations
 
+Before you can use this module, you have to 'register' your module, so that it will be checked for attributes.
+To do this, simply add your module name to `Renttek\Attributes\Model\ClassFinder->modules` like so:
+
+```xml
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Renttek\Attributes\Model\ClassFinder">
+        <arguments>
+            <argument name="modules" xsi:type="array">
+                <item name="vendor-module" xsi:type="string">Vendor_Module</item>
+            </argument>
+        </arguments>
+    </type>
+</config>
+```
+
 ### Webapi
 
 ```php
