@@ -5,18 +5,20 @@ declare(strict_types=1);
 namespace Renttek\Attributes\Model\Webapi;
 
 use Magento\Webapi\Model\Config\Converter;
+use Renttek\Attributes\Model\AttributeConfigInterface;
 use Renttek\Attributes\Model\ConfigGenerator;
 use function array_merge as merge;
 
 /**
  * @psalm-import-type RouteConfigs from WebapiProcessor
  * @psalm-import-type ServiceConfigs from WebapiProcessor
- * @psalm-type WebapiConfig = array{services: ServiceConfigs, routes: RouteConfigs}
  */
-class WebapiConfig
+class WebapiConfig implements AttributeConfigInterface
 {
+    private const ID = 'webapi';
+
     /**
-     * @var WebapiConfig
+     * @var array{services: ServiceConfigs, routes: RouteConfigs}
      */
     private array $config;
     private bool $initialized = false;
@@ -26,26 +28,22 @@ class WebapiConfig
     ) {
     }
 
-    /**
-     * @param RouteConfigs $routesConfig
-     */
-    public function addRoutes(array $routesConfig): void
+
+    public function getId(): string
     {
-        $this->config[Converter::KEY_ROUTES] = merge(
-            $this->config[Converter::KEY_ROUTES] ?? [],
-            $routesConfig
-        );
+        return self::ID;
     }
 
     /**
-     * @param ServiceConfigs $servicesConfig
+     * @return array{services: ServiceConfigs, routes: RouteConfigs}
      */
-    public function addServices(array $servicesConfig): void
+    public function getConfig(): array
     {
-        $this->config[Converter::KEY_SERVICES] = merge(
-            $this->config[Converter::KEY_SERVICES] ?? [],
-            $servicesConfig
-        );
+        if (!$this->initialized) {
+            $this->initialize();
+        }
+
+        return $this->config;
     }
 
     private function initialize(): void
@@ -59,14 +57,24 @@ class WebapiConfig
     }
 
     /**
-     * @return WebapiConfig
+     * @param RouteConfigs $routesConfig
      */
-    public function getConfig(): array
+    private function addRoutes(array $routesConfig): void
     {
-        if (!$this->initialized) {
-            $this->initialize();
-        }
+        $this->config[Converter::KEY_ROUTES] = merge(
+            $this->config[Converter::KEY_ROUTES] ?? [],
+            $routesConfig
+        );
+    }
 
-        return $this->config;
+    /**
+     * @param ServiceConfigs $servicesConfig
+     */
+    private function addServices(array $servicesConfig): void
+    {
+        $this->config[Converter::KEY_SERVICES] = merge(
+            $this->config[Converter::KEY_SERVICES] ?? [],
+            $servicesConfig
+        );
     }
 }

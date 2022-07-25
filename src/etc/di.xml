@@ -4,9 +4,11 @@
     <preference for="Renttek\Attributes\Api\FooRepositoryInterface" type="Renttek\Attributes\Api\FooRepository"/>
 
     <!-- Observers -->
+    <!-- Observers - Plugins -->
     <type name="Magento\Framework\Event\ConfigInterface">
         <plugin name="renttek_attributes__event__add_attribute_config" type="Renttek\Attributes\Plugin\Config\AddEventConfig" sortOrder="100"/>
     </type>
+    <!-- Observers - Virtual Types -->
     <virtualType name="Renttek\Attributes\Virtual\ObserverConfigGenerator" type="Renttek\Attributes\Model\ConfigGenerator">
         <arguments>
             <argument name="processor" xsi:type="object">Renttek\Attributes\Model\Event\ObserverProcessor</argument>
@@ -15,16 +17,29 @@
             </argument>
         </arguments>
     </virtualType>
+    <virtualType name="Renttek\Attributes\Virtual\CachedObserverConfig" type="Renttek\Attributes\Model\CachedConfig">
+        <arguments>
+            <argument name="config" xsi:type="object">Renttek\Attributes\Model\Event\ObserverConfig</argument>
+        </arguments>
+    </virtualType>
+    <!-- Observers - Arguments -->
     <type name="Renttek\Attributes\Model\Event\ObserverConfig">
         <arguments>
             <argument name="configGenerator" xsi:type="object">Renttek\Attributes\Virtual\ObserverConfigGenerator</argument>
         </arguments>
     </type>
+    <type name="Renttek\Attributes\Plugin\Config\AddEventConfig">
+        <arguments>
+            <argument name="observerConfig" xsi:type="object">Renttek\Attributes\Virtual\CachedObserverConfig</argument>
+        </arguments>
+    </type>
 
     <!-- Webapi -->
+    <!-- Webapi - Plugins -->
     <type name="Magento\Webapi\Model\ConfigInterface">
         <plugin name="renttek_attributes__webapi__add_attribute_config" type="Renttek\Attributes\Plugin\Config\AddWebapiConfig" sortOrder="100"/>
     </type>
+    <!-- Webapi - Virtual Types -->
     <virtualType name="Renttek\Attributes\Virtual\WebapiConfigGenerator" type="Renttek\Attributes\Model\ConfigGenerator">
         <arguments>
             <argument name="processor" xsi:type="object">Renttek\Attributes\Model\Webapi\WebapiProcessor</argument>
@@ -33,16 +48,29 @@
             </argument>
         </arguments>
     </virtualType>
+    <virtualType name="Renttek\Attributes\Virtual\CachedWebapiConfig" type="Renttek\Attributes\Model\CachedConfig">
+        <arguments>
+            <argument name="config" xsi:type="object">Renttek\Attributes\Model\Event\WebapiConfig</argument>
+        </arguments>
+    </virtualType>
+    <!-- Webapi - Arguments -->
     <type name="Renttek\Attributes\Model\Webapi\WebapiConfig">
         <arguments>
             <argument name="configGenerator" xsi:type="object">Renttek\Attributes\Virtual\WebapiConfigGenerator</argument>
         </arguments>
     </type>
+    <type name="Renttek\Attributes\Plugin\Config\AddWebapiConfig">
+        <arguments>
+            <argument name="webapiConfig" xsi:type="object">Renttek\Attributes\Virtual\CachedWebapiConfig</argument>
+        </arguments>
+    </type>
 
     <!-- Cron -->
+    <!-- Cron - Plugins -->
     <type name="Magento\Cron\Model\ConfigInterface">
         <plugin name="renttek_attributes__cron__add_attribute_config" type="Renttek\Attributes\Plugin\Config\AddCronjobConfig" sortOrder="100"/>
     </type>
+    <!-- Cron - Virtual Types -->
     <virtualType name="Renttek\Attributes\Virtual\CronjobConfigGenerator" type="Renttek\Attributes\Model\ConfigGenerator">
         <arguments>
             <argument name="processor" xsi:type="object">Renttek\Attributes\Model\Cronjob\CronjobProcessor</argument>
@@ -51,9 +79,20 @@
             </argument>
         </arguments>
     </virtualType>
+    <virtualType name="Renttek\Attributes\Virtual\CachedCronjobConfig" type="Renttek\Attributes\Model\CachedConfig">
+        <arguments>
+            <argument name="config" xsi:type="object">Renttek\Attributes\Model\Event\CronjobConfig</argument>
+        </arguments>
+    </virtualType>
+    <!-- Cron - Arguments -->
     <type name="Renttek\Attributes\Model\Cronjob\CronjobConfig">
         <arguments>
             <argument name="configGenerator" xsi:type="object">Renttek\Attributes\Virtual\CronjobConfigGenerator</argument>
+        </arguments>
+    </type>
+    <type name="Renttek\Attributes\Plugin\Config\AddCronjobConfig">
+        <arguments>
+            <argument name="cronjobConfig" xsi:type="object">Renttek\Attributes\Virtual\CachedCronjobConfig</argument>
         </arguments>
     </type>
 </config>

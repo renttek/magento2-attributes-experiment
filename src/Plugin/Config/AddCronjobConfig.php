@@ -5,21 +5,22 @@ declare(strict_types=1);
 namespace Renttek\Attributes\Plugin\Config;
 
 use Magento\Cron\Model\ConfigInterface;
-use Renttek\Attributes\Model\Cronjob\CronjobConfig;
+use Renttek\Attributes\Model\AttributeConfigInterface;
 
 class AddCronjobConfig
 {
     public function __construct(
-        private readonly CronjobConfig $cronjobConfig
+        private readonly AttributeConfigInterface $cronjobConfig
     ) {
     }
 
-    public function afterGetJobs(ConfigInterface $configModel, array $jobs): array
+    /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
+    public function afterGetJobs(ConfigInterface $configModel, array $originalCronjobs): array
     {
-        $x = array_replace_recursive($jobs, $this->cronjobConfig->getJobs());
+        $cronjobs = $this->cronjobConfig->getConfig();
 
-        dd($x);
-
-        return $jobs;
+        return array_replace_recursive($originalCronjobs, $cronjobs);
     }
 }

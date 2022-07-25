@@ -4,15 +4,20 @@ declare(strict_types=1);
 
 namespace Renttek\Attributes\Model\Cronjob;
 
+use Renttek\Attributes\Model\AttributeConfigInterface;
 use Renttek\Attributes\Model\ConfigGenerator;
 
 /**
  * @psalm-type Cronjob = array{instance: class-string, name: string, disabled: bool, shared: bool, schedule?: string, config_path?: string}
  */
-class CronjobConfig
+class CronjobConfig implements AttributeConfigInterface
 {
+    private const ID = 'cronjob';
 
-    private array $cronjobs = [];
+    /**
+     * @var array<string, array<string, Cronjob>>
+     */
+    private array $config = [];
     private bool $initialized = false;
 
     public function __construct(
@@ -20,32 +25,21 @@ class CronjobConfig
     ) {
     }
 
+    public function getId(): string
+    {
+        return self::ID;
+    }
+
     /**
-     * @param class-string $instance
+     * @return array<string, array<string, Cronjob>>
      */
-    public function addCronjob(
-        string $instance,
-        string $method,
-        string $name,
-        string $group,
-        ?string $schedule,
-        ?string $configPath,
-    ): void {
-        $this->cronjobs[$group] ??= [];
-
-        $this->cronjobs[$group][$name] = [
-            'name'     => $name,
-            'instance' => $instance,
-            'method'   => $method,
-        ];
-
-        if ($schedule !== null) {
-            $this->cronjobs[$group][$name]['schedule'] = $schedule;
+    public function getConfig(): array
+    {
+        if (!$this->initialized) {
+            $this->initialize();
         }
 
-        if ($configPath !== null) {
-            $this->cronjobs[$group][$name]['config_path'] = $configPath;
-        }
+        return $this->config;
     }
 
     private function initialize(): void
@@ -65,14 +59,30 @@ class CronjobConfig
     }
 
     /**
-     * @return array<string, array<string, Cronjob>>
+     * @param class-string $instance
      */
-    public function getJobs(): array
-    {
-        if (!$this->initialized) {
-            $this->initialize();
+    private function addCronjob(
+        string $instance,
+        string $method,
+        string $name,
+        string $group,
+        ?string $schedule,
+        ?string $configPath,
+    ): void {
+        $this->config[$group] ??= [];
+
+        $this->config[$group][$name] = [
+            'name'     => $name,
+            'instance' => $instance,
+            'method'   => $method,
+        ];
+
+        if ($schedule !== null) {
+            $this->config[$group][$name]['schedule'] = $schedule;
         }
 
-        return $this->cronjobs;
+        if ($configPath !== null) {
+            $this->config[$group][$name]['config_path'] = $configPath;
+        }
     }
 }

@@ -37,7 +37,7 @@ class ObserverProcessor implements ClassProcessorInterface
     {
         return $class instanceof Class_
             && isObserver($class)
-            && hasAttribute($class, Observer::class);
+            && hasAttribute($class, EventSubscriber::class);
     }
 
     private function getEventName(ReflectionClass $reflection): string

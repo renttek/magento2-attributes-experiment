@@ -22,7 +22,6 @@ class ConfigGenerator
 
         foreach ($classFiles as $classFile) {
             $classNodes = $this->classReader->getClassNodes($classFile) ?? [];
-
             foreach ($classNodes as $classNode) {
                 if (!$this->processor->supports($classNode)) {
                     continue;

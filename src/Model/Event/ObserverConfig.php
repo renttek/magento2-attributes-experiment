@@ -5,25 +5,42 @@ declare(strict_types=1);
 namespace Renttek\Attributes\Model\Event;
 
 use Magento\Framework\App\Area;
+use Renttek\Attributes\Model\AttributeConfigInterface;
 use Renttek\Attributes\Model\ConfigGenerator;
-
-use function iter\filter;
-use function iter\toArrayWithKeys;
 
 /**
  * @psalm-type Observer = array{instance: class-string, name: string, disabled: bool, shared: bool}
  */
-class ObserverConfig
+class ObserverConfig implements AttributeConfigInterface
 {
+    private const ID = 'observers';
+
     /**
-     * @var array<string, array<string, ObserverStruct>>
+     * @var array<string, array<string, array<string, Observer>>>
      */
-    private array $observers = [];
+    private array $config = [];
     private bool $initialized = false;
 
     public function __construct(
         private readonly ConfigGenerator $configGenerator
     ) {
+    }
+
+    public function getId(): string
+    {
+        return self::ID;
+    }
+
+    /**
+     * @return array<string, array<string, array<string, Observer>>>
+     */
+    public function getConfig(): array
+    {
+        if (!$this->initialized) {
+            $this->initialize();
+        }
+
+        return $this->config;
     }
 
     /**
@@ -39,9 +56,9 @@ class ObserverConfig
     ): void {
         $area ??= Area::AREA_GLOBAL;
 
-        $this->observers[$area]                ??= [];
-        $this->observers[$area][$event]        ??= [];
-        $this->observers[$area][$event][$name] = [
+        $this->config[$area]                ??= [];
+        $this->config[$area][$event]        ??= [];
+        $this->config[$area][$event][$name] = [
             'instance' => $instance,
             'name'     => $name,
             'disabled' => $disabled,
@@ -63,41 +80,5 @@ class ObserverConfig
         }
 
         $this->initialized = true;
-    }
-
-    /**
-     * @psalm-param Area::AREA_* $area
-     *
-     * @return array<string, ObserverStruct>
-     */
-    public function getObserversForEvent(string $area, string $event): array
-    {
-        if (!$this->initialized) {
-            $this->initialize();
-        }
-
-        $observers = $this->getByAreaAndName($area, $event);
-
-        if ($area !== Area::AREA_GLOBAL) {
-            $globalObservers = $this->getByAreaAndName(Area::AREA_GLOBAL, $event);
-            $observers       = array_replace_recursive($globalObservers, $observers);
-        }
-
-        return $observers;
-    }
-
-    /**
-     * @psalm-param Area::AREA_* $area
-     *
-     * @return array<string, ObserverStruct>
-     */
-    private function getByAreaAndName(string $area, string $name): array
-    {
-        return toArrayWithKeys(
-            filter(
-                fn(array $observer) => $name === $observer['event'],
-                $this->observers[$area] ?? []
-            )
-        );
     }
 }
