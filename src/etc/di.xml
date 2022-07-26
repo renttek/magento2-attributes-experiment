@@ -57,7 +57,7 @@
     </virtualType>
     <virtualType name="Renttek\Attributes\Virtual\CachedWebapiConfig" type="Renttek\Attributes\Model\CachedConfig">
         <arguments>
-            <argument name="config" xsi:type="object">Renttek\Attributes\Model\Event\WebapiConfig</argument>
+            <argument name="config" xsi:type="object">Renttek\Attributes\Model\Webapi\WebapiConfig</argument>
         </arguments>
     </virtualType>
     <!-- Webapi - Arguments -->
