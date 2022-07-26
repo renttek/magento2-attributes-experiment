@@ -45,28 +45,15 @@ class AddEventConfig
      */
     public function getObserversForEvent(array $config, string $area, string $event): array
     {
-        $observers = $this->getByAreaAndName($config, $area, $event);
+        $areaConfig = $config[$area] ?? [];
+        $observers = $areaConfig[$event] ?? [];
 
         if ($area !== Area::AREA_GLOBAL) {
-            $globalObservers = $this->getByAreaAndName($config, Area::AREA_GLOBAL, $event);
+            $globalAreaConfig = $config[Area::AREA_GLOBAL] ?? [];
+            $globalObservers = $globalAreaConfig[$event] ?? [];
             $observers       = array_replace_recursive($globalObservers, $observers);
         }
 
         return $observers;
-    }
-
-    /**
-     * @psalm-param Area::AREA_* $area
-     *
-     * @return array<string, ObserverStruct>
-     */
-    private function getByAreaAndName(array $config, string $area, string $name): array
-    {
-        return toArrayWithKeys(
-            filter(
-                fn(array $observer) => $name === $observer['event'],
-                $config[$area] ?? []
-            )
-        );
     }
 }
