@@ -9,10 +9,11 @@ use Magento\Framework\App\State;
 use Magento\Framework\Event\ConfigInterface;
 use Magento\Framework\Exception\LocalizedException;
 use Renttek\Attributes\Model\AttributeConfigInterface;
+use Renttek\Attributes\Model\Event\ObserverConfig;
 
-use function iter\filter;
-use function iter\toArrayWithKeys;
-
+/**
+ * @psalm-import-type Observer from ObserverConfig
+ */
 class AddEventConfig
 {
     public function __construct(
@@ -41,7 +42,7 @@ class AddEventConfig
     /**
      * @psalm-param Area::AREA_* $area
      *
-     * @return array<string, ObserverStruct>
+     * @return array<string, Observer>
      */
     public function getObserversForEvent(array $config, string $area, string $event): array
     {

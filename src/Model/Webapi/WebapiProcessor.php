@@ -7,6 +7,7 @@ namespace Renttek\Attributes\Model\Webapi;
 use Magento\Webapi\Model\Config\Converter;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Interface_;
+use ReflectionAttribute;
 use ReflectionClass;
 use ReflectionMethod;
 use Renttek\Attributes\Attributes\Webapi;
@@ -24,7 +25,7 @@ use function Renttek\Attributes\Functions\hasAttribute;
 
 /**
  * @psalm-type RouteConfigs = array<string, array<string, RouteConfig>>
- * @psalm-type RouteConfig = array{secure: bool, service: Service, resources: RestResourceList, parameters: Parameters, input-array-size-limit: int|null}
+ * @psalm-type RouteConfig = array{secure: bool, service: RestService, resources: RestResourceList, parameters: Parameters, input-array-size-limit: int|null}
  * @psalm-type RestService = array{class: class-string, method: string}
  * @psalm-type RestResourceList = array<string, true>
  *
@@ -73,7 +74,7 @@ class WebapiProcessor implements ClassProcessorInterface
     }
 
     /**
-     * @param list<Webapi\Route> $methodConfigs
+     * @param list<ReflectionAttribute> $methodConfigs
      *
      * @return RouteConfigs
      */
@@ -109,7 +110,7 @@ class WebapiProcessor implements ClassProcessorInterface
     }
 
     /**
-     * @param list<Webapi\Route> $methodConfigs
+     * @param list<ReflectionAttribute> $methodConfigs
      *
      * @return ServiceConfigs
      */
