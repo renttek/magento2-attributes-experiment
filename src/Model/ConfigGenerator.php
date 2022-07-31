@@ -8,6 +8,9 @@ use ReflectionClass;
 
 class ConfigGenerator
 {
+    /**
+     * @param list<string> $paths
+     */
     public function __construct(
         private readonly ClassFinder $classFinder,
         private readonly ClassReader $classReader,
@@ -16,6 +19,9 @@ class ConfigGenerator
     ) {
     }
 
+    /**
+     * @return iterable<array<string, mixed>>
+     */
     public function generate(): iterable
     {
         $classFiles = $this->classFinder->findClasses($this->paths);

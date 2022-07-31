@@ -18,6 +18,11 @@ use function Renttek\Attributes\Functions\hasAttribute;
 
 class CronjobProcessor implements ClassProcessorInterface
 {
+    /**
+     * @param ReflectionClass<object> $reflection
+     *
+     * @return iterable<array{instance: class-string, method: string, name: string, group: string, schedule: string|null, configPath: string|null}>
+     */
     public function process(ReflectionClass $reflection): iterable
     {
         /** @var iterable<ReflectionMethod> $methods */

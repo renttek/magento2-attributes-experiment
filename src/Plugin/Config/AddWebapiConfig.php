@@ -7,8 +7,13 @@ namespace Renttek\Attributes\Plugin\Config;
 use Magento\Webapi\Model\Config\Converter;
 use Magento\Webapi\Model\ConfigInterface;
 use Renttek\Attributes\Model\AttributeConfigInterface;
+use Renttek\Attributes\Model\Webapi\WebapiConfig;
+
 use function array_merge as merge;
 
+/**
+ * @psalm-import-type WebapiConfigArray from WebapiConfig
+ */
 class AddWebapiConfig
 {
     public function __construct(
@@ -17,6 +22,10 @@ class AddWebapiConfig
     }
 
     /**
+     * @psalm-param WebapiConfigArray $apiConfig
+     *
+     * @psalm-return WebapiConfigArray
+     *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function afterGetServices(ConfigInterface $configModel, array $apiConfig): array

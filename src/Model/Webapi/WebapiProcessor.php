@@ -13,7 +13,6 @@ use ReflectionMethod;
 use Renttek\Attributes\Attributes\Webapi;
 use Renttek\Attributes\Model\ClassProcessorInterface;
 
-use function array_unique as unique;
 use function iter\count;
 use function iter\filter;
 use function iter\flip;
@@ -34,9 +33,16 @@ use function Renttek\Attributes\Functions\hasAttribute;
  * @psalm-type SoapResourceList = list<string>
  *
  * @psalm-type Parameters = array<string, array{force: bool, value: string}>
+ *
+ * @psalm-type WebapiConfigArray = array{services: ServiceConfigs, routes: RouteConfigs}
  */
 class WebapiProcessor implements ClassProcessorInterface
 {
+    /**
+     * @param ReflectionClass<object> $reflection
+     *
+     * @return iterable<WebapiConfigArray>
+     */
     public function process(ReflectionClass $reflection): iterable
     {
         $classAttributes = $reflection->getAttributes(Webapi::class);
@@ -74,7 +80,7 @@ class WebapiProcessor implements ClassProcessorInterface
     }
 
     /**
-     * @param list<ReflectionAttribute> $methodConfigs
+     * @param list<ReflectionAttribute<Webapi\Route>> $methodConfigs
      *
      * @return RouteConfigs
      */
@@ -109,7 +115,7 @@ class WebapiProcessor implements ClassProcessorInterface
 
     /**
      * @param class-string $class
-     * @param list<ReflectionAttribute> $methodConfigs
+     * @param list<ReflectionAttribute<Webapi\Route>> $methodConfigs
      *
      * @return ServiceConfigs
      */

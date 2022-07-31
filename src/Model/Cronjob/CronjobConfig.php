@@ -9,6 +9,7 @@ use Renttek\Attributes\Model\ConfigGenerator;
 
 /**
  * @psalm-type Cronjob = array{instance: class-string, name: string, disabled: bool, shared: bool, schedule?: string, config_path?: string}
+ * @psalm-type CronjobConfigArray = array<string, array<string, Cronjob>>
  */
 class CronjobConfig implements AttributeConfigInterface
 {
@@ -31,7 +32,7 @@ class CronjobConfig implements AttributeConfigInterface
     }
 
     /**
-     * @return array<string, array<string, Cronjob>>
+     * @return CronjobConfigArray
      */
     public function getConfig(): array
     {

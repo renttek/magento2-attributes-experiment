@@ -21,6 +21,9 @@ use function iter\toArray;
 
 class ClassFinder
 {
+    /**
+     * @param list<string> $modules
+     */
     public function __construct(
         private readonly ModuleListInterface $moduleList,
         private readonly ComponentRegistrarInterface $componentRegistrar,
@@ -29,6 +32,8 @@ class ClassFinder
     }
 
     /**
+     * @param list<string> $paths
+     *
      * @return list<SplFileInfo>
      */
     public function findClasses(array $paths = []): array

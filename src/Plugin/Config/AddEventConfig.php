@@ -13,6 +13,7 @@ use Renttek\Attributes\Model\Event\ObserverConfig;
 
 /**
  * @psalm-import-type Observer from ObserverConfig
+ * @psalm-import-type ObserverConfigArray from ObserverConfig
  */
 class AddEventConfig
 {
@@ -23,6 +24,10 @@ class AddEventConfig
     }
 
     /**
+     * @psalm-param array<string, Observer> $originalObservers
+     *
+     * @psalm-return array<string, Observer>
+     *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function afterGetObservers(ConfigInterface $configModel, array $originalObservers, string $eventName): array
@@ -41,6 +46,7 @@ class AddEventConfig
     }
 
     /**
+     * @psalm-param ObserverConfigArray $config
      * @psalm-param Area::AREA_* $area
      *
      * @return array<string, Observer>

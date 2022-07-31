@@ -12,6 +12,7 @@ use function array_merge as merge;
 /**
  * @psalm-import-type RouteConfigs from WebapiProcessor
  * @psalm-import-type ServiceConfigs from WebapiProcessor
+ * @psalm-import-type WebapiConfigArray from WebapiProcessor
  */
 class WebapiConfig implements AttributeConfigInterface
 {
@@ -35,7 +36,7 @@ class WebapiConfig implements AttributeConfigInterface
     }
 
     /**
-     * @return array{services: ServiceConfigs, routes: RouteConfigs}
+     * @return WebapiConfigArray
      */
     public function getConfig(): array
     {

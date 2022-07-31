@@ -10,6 +10,7 @@ use Renttek\Attributes\Model\ConfigGenerator;
 
 /**
  * @psalm-type Observer = array{instance: class-string, name: string, disabled: bool, shared: bool}
+ * @psalm-type ObserverConfigArray = array<string, array<string, array<string, Observer>>>
  */
 class ObserverConfig implements AttributeConfigInterface
 {

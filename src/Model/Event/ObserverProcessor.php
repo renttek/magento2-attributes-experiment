@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Renttek\Attributes\Model\Event;
 
+use Magento\Framework\Event\ObserverInterface;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Interface_;
 use ReflectionClass;
@@ -15,6 +16,11 @@ use function Renttek\Attributes\Functions\isObserver;
 
 class ObserverProcessor implements ClassProcessorInterface
 {
+    /**
+     * @param ReflectionClass<ObserverInterface> $reflection
+     *
+     * @return iterable<array{area: string, event: string, instance: class-string, name: string, shared: bool, disabled: bool}>
+     */
     public function process(ReflectionClass $reflection): iterable
     {
         $observerAttributes = $reflection->getAttributes(EventSubscriber::class);
@@ -40,6 +46,9 @@ class ObserverProcessor implements ClassProcessorInterface
             && hasAttribute($class, EventSubscriber::class);
     }
 
+    /**
+     * @psalm-param ReflectionClass<ObserverInterface> $reflection
+     */
     private function getEventName(ReflectionClass $reflection): string
     {
         return strtolower(str_replace('\\', '_', $reflection->getName()));

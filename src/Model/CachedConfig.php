@@ -17,6 +17,9 @@ class CachedConfig implements AttributeConfigInterface
         return $this->config->getId();
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function getConfig(): array
     {
         $config = $this->configurationCache->load($this->getId());

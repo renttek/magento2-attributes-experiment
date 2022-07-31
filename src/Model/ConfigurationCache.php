@@ -18,6 +18,10 @@ class ConfigurationCache
     ) {
     }
 
+
+    /**
+     * @param array<string, mixed> $config
+     */
     public function save(string $key, array $config): void
     {
         $this->initialize();
@@ -35,6 +39,9 @@ class ConfigurationCache
         }
     }
 
+    /**
+     * @return array<string, mixed>|null
+     */
     public function load(string $key): ?array
     {
         $this->initialize();
@@ -69,6 +76,9 @@ class ConfigurationCache
         }
     }
 
+    /**
+     * @param array<string, mixed> $config
+     */
     private function saveConfigToFile(string $cacheFile, array $config): bool
     {
         $content = '<?php return ' . var_export($config, true) . ';';
