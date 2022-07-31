@@ -29,7 +29,7 @@ use function Renttek\Attributes\Functions\hasAttribute;
  * @psalm-type RestService = array{class: class-string, method: string}
  * @psalm-type RestResourceList = array<string, true>
  *
- * @psalm-type ServiceConfigs = array<class-string, array<string, array<string, array<string>>>>
+ * @psalm-type ServiceConfigs = array<class-string, array<string, array<string, array<string, SoapMethod>>>>
  * @psalm-type SoapMethod = array{resources: SoapResourceList, secure: bool, realMethod: string, parameters: Parameters, input-array-size-limit: int|null}
  * @psalm-type SoapResourceList = list<string>
  *
@@ -110,6 +110,7 @@ class WebapiProcessor implements ClassProcessorInterface
     }
 
     /**
+     * @param class-string $class
      * @param list<ReflectionAttribute> $methodConfigs
      *
      * @return ServiceConfigs

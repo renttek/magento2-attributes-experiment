@@ -33,7 +33,10 @@ class ClassReader
         $nodes       = $this->getParser()->parse($fileContent);
         $this->getNodeTraverser()->traverse($nodes);
 
-        return $this->getClassFinder()->getFoundNodes();
+        /** @var list<Class_|Interface_>|null $classNodes */
+        $classNodes = $this->getClassFinder()->getFoundNodes();
+
+        return $classNodes;
     }
 
     private function readFile(SplFileInfo $path): string
