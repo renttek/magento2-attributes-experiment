@@ -30,7 +30,10 @@ class ClassReader
     public function getClassNodes(SplFileInfo $path): ?array
     {
         $fileContent = $this->readFile($path);
-        $nodes       = $this->getParser()->parse($fileContent);
+
+        /** @var list<Node> $nodes */
+        $nodes = $this->getParser()->parse($fileContent);
+
         $this->getNodeTraverser()->traverse($nodes);
 
         /** @var list<Class_|Interface_>|null $classNodes */

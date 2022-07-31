@@ -33,8 +33,12 @@ class ConfigGenerator
                     continue;
                 }
 
-                /** @psalm-var class-string $className */
-                $className = $classNode->namespacedName->toString();
+                /** @psalm-var class-string|null $className */
+                $className = $classNode->namespacedName?->toString();
+
+                if ($className === null) {
+                    continue;
+                }
 
                 /** @noinspection PhpUnhandledExceptionInspection */
                 $reflection = new ReflectionClass($className);
