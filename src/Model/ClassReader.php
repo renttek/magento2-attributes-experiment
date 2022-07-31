@@ -18,6 +18,8 @@ use SplFileInfo;
 class ClassReader
 {
     private FindingVisitor $classFinder;
+    private Parser $parser;
+    private NodeTraverser $nodeTraverser;
 
     /**
      * @param SplFileInfo $path

@@ -7,6 +7,7 @@ namespace Renttek\Attributes\Attributes;
 use Attribute;
 use Renttek\Attributes\Attributes\Webapi\Parameter;
 use Renttek\Attributes\Attributes\Webapi\Resource;
+use TypeError;
 
 #[Attribute(Attribute::TARGET_CLASS)]
 class Webapi
