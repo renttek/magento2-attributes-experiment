@@ -28,6 +28,7 @@ class AddEventConfig
     public function afterGetObservers(ConfigInterface $configModel, array $originalObservers, string $eventName): array
     {
         try {
+            /** @psalm-var Area::AREA_* $areaCode */
             $areaCode = $this->state->getAreaCode();
         } catch (LocalizedException) {
             $areaCode = Area::AREA_GLOBAL;

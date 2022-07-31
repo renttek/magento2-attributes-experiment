@@ -11,7 +11,7 @@ use Magento\Framework\Event\ObserverInterface;
 #[EventSubscriber('example', area: 'frontend')]
 #[EventSubscriber('example', area: 'adminhtml', disabled: true )]
 #[EventSubscriber('example', area: 'webapi_rest', shared: true)]
-#[EventSubscriber('example', area: 'cron', name: 'my cron observer')]
+#[EventSubscriber('example', area: 'crontab', name: 'my cron observer')]
 class DoStuff implements ObserverInterface
 {
     public function execute(Observer $observer)
