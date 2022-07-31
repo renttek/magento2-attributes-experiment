@@ -80,6 +80,7 @@ class WebapiProcessor implements ClassProcessorInterface
     }
 
     /**
+     * @param class-string $class
      * @param list<ReflectionAttribute<Webapi\Route>> $methodConfigs
      *
      * @return RouteConfigs

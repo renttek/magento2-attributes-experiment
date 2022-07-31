@@ -8,7 +8,7 @@ use Renttek\Attributes\Model\AttributeConfigInterface;
 use Renttek\Attributes\Model\ConfigGenerator;
 
 /**
- * @psalm-type Cronjob = array{instance: class-string, name: string, disabled: bool, shared: bool, schedule?: string, config_path?: string}
+ * @psalm-type Cronjob = array{instance: class-string, name: string, schedule: string|null, config_path: string|null}
  * @psalm-type CronjobConfigArray = array<string, array<string, Cronjob>>
  */
 class CronjobConfig implements AttributeConfigInterface
@@ -16,7 +16,7 @@ class CronjobConfig implements AttributeConfigInterface
     private const ID = 'cronjob';
 
     /**
-     * @var array<string, array<string, Cronjob>>
+     * @var CronjobConfigArray
      */
     private array $config = [];
     private bool $initialized = false;
@@ -73,17 +73,11 @@ class CronjobConfig implements AttributeConfigInterface
         $this->config[$group] ??= [];
 
         $this->config[$group][$name] = [
-            'name'     => $name,
-            'instance' => $instance,
-            'method'   => $method,
+            'name'        => $name,
+            'instance'    => $instance,
+            'method'      => $method,
+            'schedule'    => $schedule,
+            'config_path' => $configPath
         ];
-
-        if ($schedule !== null) {
-            $this->config[$group][$name]['schedule'] = $schedule;
-        }
-
-        if ($configPath !== null) {
-            $this->config[$group][$name]['config_path'] = $configPath;
-        }
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Renttek\Attributes\Model\Event;
 
+use Magento\Framework\App\Area;
 use Magento\Framework\Event\ObserverInterface;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Interface_;
@@ -19,7 +20,7 @@ class ObserverProcessor implements ClassProcessorInterface
     /**
      * @param ReflectionClass<ObserverInterface> $reflection
      *
-     * @return iterable<array{area: string, event: string, instance: class-string, name: string, shared: bool, disabled: bool}>
+     * @psalm-return iterable<array{area: Area::AREA_*, event: string, instance: class-string, class-string<ObserverInterface>,: string, shared: bool, disabled: bool}>
      */
     public function process(ReflectionClass $reflection): iterable
     {

@@ -33,12 +33,11 @@ class ConfigGenerator
                     continue;
                 }
 
+                /** @psalm-var class-string $className */
                 $className = $classNode->namespacedName->toString();
-                try {
-                    $reflection = new ReflectionClass($className);
-                } catch (\ReflectionException $e) {
-                    continue;
-                }
+
+                /** @noinspection PhpUnhandledExceptionInspection */
+                $reflection = new ReflectionClass($className);
 
                 yield from $this->processor->process($reflection);
             }
