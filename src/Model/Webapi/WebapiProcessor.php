@@ -91,8 +91,6 @@ class WebapiProcessor implements ClassProcessorInterface
             $route->parameters          ??= $classConfig?->parameters;
             $route->inputArraySizeLimit ??= $classConfig?->inputArraySizeLimit;
 
-            unique(toArray(map(fn(Webapi\Resource $r) => $r->ref, $route->resources)));
-
             $config[$url]                 ??= [];
             $config[$url][$route->method] = [
                 Converter::KEY_SECURE                 => $route->secure,
