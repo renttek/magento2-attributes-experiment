@@ -18,6 +18,13 @@
     "require-dev": {
         "roave/security-advisories": "dev-latest"
     },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://repo.magento.com/",
+            "only": ["magento/*"]
+        }
+    ],
     "autoload": {
         "files": [
             "registration.php",
@@ -25,6 +32,11 @@
         ],
         "psr-4": {
             "Renttek\\Attributes\\": "src/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "magento/composer-dependency-version-audit-plugin": false
         }
     }
 }
