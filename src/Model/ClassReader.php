@@ -63,8 +63,8 @@ class ClassReader
     private function getNodeTraverser(): NodeTraverserInterface
     {
         if (!isset($this->nodeTraverser)) {
-            $this->nodeTraverser = new NodeTraverser;
-            $this->nodeTraverser->addVisitor(new NameResolver);
+            $this->nodeTraverser = new NodeTraverser();
+            $this->nodeTraverser->addVisitor(new NameResolver());
             $this->nodeTraverser->addVisitor($this->getClassFinder());
         }
 

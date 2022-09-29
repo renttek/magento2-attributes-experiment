@@ -7,6 +7,7 @@ namespace Renttek\Attributes\Model\Webapi;
 use Magento\Webapi\Model\Config\Converter;
 use Renttek\Attributes\Model\AttributeConfigInterface;
 use Renttek\Attributes\Model\ConfigGenerator;
+
 use function array_merge as merge;
 
 /**

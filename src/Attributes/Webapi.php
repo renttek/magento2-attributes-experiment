@@ -22,7 +22,12 @@ class Webapi
         public ?array $parameters = null,
         public ?int $inputArraySizeLimit = null,
     ) {
-        Assertion::allIsInstanceOf($this->resources, Resource::class);
-        Assertion::allIsInstanceOf($this->parameters, Parameter::class);
+        if ($this->resources !== null) {
+            Assertion::allIsInstanceOf($this->resources, Resource::class);
+        }
+
+        if ($this->parameters !== null) {
+            Assertion::allIsInstanceOf($this->parameters, Parameter::class);
+        }
     }
 }

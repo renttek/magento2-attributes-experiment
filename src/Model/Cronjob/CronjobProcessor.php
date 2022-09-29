@@ -21,7 +21,14 @@ class CronjobProcessor implements ClassProcessorInterface
     /**
      * @param ReflectionClass<object> $reflection
      *
-     * @return iterable<array{instance: class-string, method: string, name: string, group: string, schedule: string|null, configPath: string|null}>
+     * @return iterable<array{
+     *     instance: class-string,
+     *     method: string,
+     *     name: string,
+     *     group: string,
+     *     schedule: string|null,
+     *     configPath: string|null
+     * }>
      */
     public function process(ReflectionClass $reflection): iterable
     {

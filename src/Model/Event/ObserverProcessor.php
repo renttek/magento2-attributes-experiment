@@ -20,7 +20,14 @@ class ObserverProcessor implements ClassProcessorInterface
     /**
      * @param ReflectionClass<ObserverInterface> $reflection
      *
-     * @psalm-return iterable<array{area: Area::AREA_*, event: string, instance: class-string, class-string<ObserverInterface>,: string, shared: bool, disabled: bool}>
+     * @psalm-return iterable<array{
+     *     area: null|Area::AREA_*,
+     *     event: string,
+     *     instance: class-string<ObserverInterface>,
+     *     name: string,
+     *     shared: bool,
+     *     disabled: bool
+     * }>
      */
     public function process(ReflectionClass $reflection): iterable
     {

@@ -24,12 +24,24 @@ use function Renttek\Attributes\Functions\hasAttribute;
 
 /**
  * @psalm-type RouteConfigs = array<string, array<string, RouteConfig>>
- * @psalm-type RouteConfig = array{secure: bool, service: RestService, resources: RestResourceList, parameters: Parameters, input-array-size-limit: int|null}
+ * @psalm-type RouteConfig = array{
+ *     secure: bool,
+ *     service: RestService,
+ *     resources: RestResourceList,
+ *     parameters: Parameters,
+ *     input-array-size-limit: int|null
+ * }
  * @psalm-type RestService = array{class: class-string, method: string}
  * @psalm-type RestResourceList = array<string, true>
  *
  * @psalm-type ServiceConfigs = array<class-string, array<string, array<string, array<string, SoapMethod>>>>
- * @psalm-type SoapMethod = array{resources: SoapResourceList, secure: bool, realMethod: string, parameters: Parameters, input-array-size-limit: int|null}
+ * @psalm-type SoapMethod = array{
+ *     resources: SoapResourceList,
+ *     secure: bool,
+ *     realMethod: string,
+ *     parameters: Parameters,
+ *     input-array-size-limit: int|null
+ * }
  * @psalm-type SoapResourceList = list<string>
  *
  * @psalm-type Parameters = array<string, array{force: bool, value: string}>
