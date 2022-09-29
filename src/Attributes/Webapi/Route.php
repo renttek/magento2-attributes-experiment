@@ -7,26 +7,19 @@ namespace Renttek\Attributes\Attributes\Webapi;
 use Attribute;
 use Renttek\Attributes\Attributes\Webapi;
 
-use function sprintf;
-
 #[Attribute(Attribute::TARGET_METHOD | Attribute::IS_REPEATABLE)]
 class Route extends Webapi
 {
     /**
      * @param list<Resource> $resources
+     * @param list<Parameter> $parameters
      */
     public function __construct(
         public string $path,
         public string $method,
         public bool $secure = true,
         public ?string $soapOperation = null,
-        /**
-         * @var list<Resource>
-         */
         public ?array $resources = null,
-        /**
-         * @var list<Parameter>
-         */
         public ?array $parameters = null,
         public ?int $inputArraySizeLimit = null,
     ) {

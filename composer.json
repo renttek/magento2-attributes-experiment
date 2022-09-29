@@ -15,7 +15,8 @@
         "symfony/finder": "^4.4|^5.4|^6.0",
         "nikic/iter": "^2.2",
         "magento/module-webapi": "^100.4",
-        "magento/module-cron": "^100.4"
+        "magento/module-cron": "^100.4",
+        "beberlei/assert": "^3.3"
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",
